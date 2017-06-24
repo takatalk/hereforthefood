@@ -53,8 +53,8 @@ def load_imgs():
     # x_train = x_train.reshape(x_train.shape[0], 3, 301, 301)
     # x_test = x_test.reshape(x_test.shape[0], 3, 301, 301)
 
-    y_train = np_utils.to_categorical(y_train, 2)
-    y_test = np_utils.to_categorical(y_test, 2)
+    # y_train = np_utils.to_categorical(y_train, 2)
+    # y_test = np_utils.to_categorical(y_test, 2)
     
     return (x_train, y_train), (x_test, y_test)
 
