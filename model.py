@@ -66,8 +66,8 @@ def load_data(label_mode='fine'):
 
 #------------------------------------------------------------------
 
-x, y = load.load_imgs()
-for i in x:
+train, test = load.load_imgs()
+for i in train[0]:
     print(i.shape)
 
 #------------------------------------------------------------------
