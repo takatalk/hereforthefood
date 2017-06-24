@@ -24,10 +24,9 @@ def load_imgs():
 
     a = 0
     # Loading in real, unedited images
-    for filename in glob.glob('data/true/*.jpeg'): #for filename in glob.glob('data/false/*.jpeg'):
+    for filename in glob.glob('data/true/*.jp*g'): #for filename in glob.glob('data/false/*.jpeg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
-        # imgArray = imgArray.reshape((1,) + imgArray.shape)
         if a < 50:
             x_train.append(imgArray)
             y_train.append(1)
@@ -41,7 +40,6 @@ def load_imgs():
     for filename in glob.glob('data/false/*.jpeg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
-        # imgArray = imgArray.reshape(1, 3, 301, 301)
         if a < 50:
             x_train.append(imgArray)
             y_train.append(0)
@@ -49,6 +47,11 @@ def load_imgs():
             x_test.append(imgArray)
             y_test.append(0)
         a += 1
+
+    x_train = np.stack(x_train)
+    x_test = np.stack(x_test)
+    x_train = x_train.reshape(x_train.shape[0], 3, 301, 301)
+    x_test = x_test.reshape(x_train.shape[0], 3, 301, 301)
 
     y_train = np_utils.to_categorical(y_train, 2)
     y_test = np_utils.to_categorical(y_test, 2)
