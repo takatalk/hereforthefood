@@ -72,13 +72,12 @@ import load
 
 batch_size = 100
 num_classes = 2
-epochs = 5
+epochs = 200
 data_augmentation = True
 
 # The data, shuffled and split between train and test sets:
 (x_train, y_train), (x_test, y_test) = load.load_imgs() #cifar10.load_data()
 print('x_train shape:', x_train.shape)
-# print('y_train shape:', y_train.shape)
 print(x_train.shape[0], 'train samples')
 print(x_test.shape[0], 'test samples')
 
@@ -132,7 +131,6 @@ if not data_augmentation:
               shuffle=True)
 else:
     print('Using real-time data augmentation.')
-    print("YAYAYA", y_train)
     # This will do preprocessing and realtime data augmentation:
     datagen = ImageDataGenerator(
         featurewise_center=False,  # set input mean to 0 over the dataset
