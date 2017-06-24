@@ -15,6 +15,88 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
+#------------------------------------------------------------------
+
+from __future__ import absolute_import
+import sys
+from six.moves import cPickle
+
+def load_batch(fpath, label_key='labels'):
+    """Internal utility for parsing CIFAR data.
+
+    # Arguments
+        fpath: path the file to parse.
+        label_key: key for label data in the retrieve
+            dictionary.
+
+    # Returns
+        A tuple `(data, labels)`.
+    """
+    f = open(fpath, 'rb')
+    if sys.version_info < (3,):
+        d = cPickle.load(f)
+    else:
+        d = cPickle.load(f, encoding='bytes')
+        # decode utf8
+        d_decoded = {}
+        for k, v in d.items():
+            d_decoded[k.decode('utf8')] = v
+        d = d_decoded
+    f.close()
+    data = d['data']
+    labels = d[label_key]
+
+    data = data.reshape(data.shape[0], 3, 32, 32)
+    return data, labels
+
+#------------------------------------------------------------------
+
+from __future__ import absolute_import
+from .cifar import load_batch
+from ..utils.data_utils import get_file
+from .. import backend as K
+import numpy as np
+import os
+
+
+def load_data(label_mode='fine'):
+    """Loads CIFAR100 dataset.
+
+    # Arguments
+        label_mode: one of "fine", "coarse".
+
+    # Returns
+        Tuple of Numpy arrays: `(x_train, y_train), (x_test, y_test)`.
+
+    # Raises
+        ValueError: in case of invalid `label_mode`.
+    """
+    if label_mode not in ['fine', 'coarse']:
+        raise ValueError('label_mode must be one of "fine" "coarse".')
+
+    dirname = 'cifar-100-python'
+    origin = 'http://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz'
+    path = get_file(dirname, origin=origin, untar=True)
+
+    fpath = os.path.join(path, 'train')
+    x_train, y_train = load_batch(fpath, label_key=label_mode + '_labels')
+
+    fpath = os.path.join(path, 'test')
+    x_test, y_test = load_batch(fpath, label_key=label_mode + '_labels')
+
+    y_train = np.reshape(y_train, (len(y_train), 1))
+    y_test = np.reshape(y_test, (len(y_test), 1))
+
+    if K.image_data_format() == 'channels_last':
+        x_train = x_train.transpose(0, 2, 3, 1)
+        x_test = x_test.transpose(0, 2, 3, 1)
+
+    return (x_train, y_train), (x_test, y_test)
+
+
+#------------------------------------------------------------------
+
+
 batch_size = 32
 num_classes = 10
 epochs = 200
