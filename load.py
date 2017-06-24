@@ -37,7 +37,7 @@ def load_imgs():
 
     a = 0
     # Loading in edited images
-    for filename in glob.glob('data/false/*.jpeg'):
+    for filename in glob.glob('data/false/*.jp*g'):
         img = load_img(filename)
         imgArray = img_to_array(img)
         if a < 50:
