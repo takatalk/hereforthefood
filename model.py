@@ -132,6 +132,7 @@ if not data_augmentation:
               shuffle=True)
 else:
     print('Using real-time data augmentation.')
+    print("YAYAYA", y_train)
     # This will do preprocessing and realtime data augmentation:
     datagen = ImageDataGenerator(
         featurewise_center=False,  # set input mean to 0 over the dataset
