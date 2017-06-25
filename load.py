@@ -53,6 +53,7 @@ def load_imgs():
     for filename in glob.glob('/home/hackathonuser/CameraDataset/JPEGImages/*.jpg'): #for filename in glob.glob('data/false/*.jpeg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
+        imgArray.resize((301,301))
         if a < 6500:
             x_train.append(imgArray)
             y_train.append(1)
@@ -66,6 +67,7 @@ def load_imgs():
     for filename in glob.glob('/home/hackathonuser/CameraDataset/altered/*.jpg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
+        imgArray.resize((301,301))
         if a < 6500:
             x_train.append(imgArray)
             y_train.append(0)
