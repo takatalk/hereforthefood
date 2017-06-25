@@ -157,5 +157,5 @@ else:
 
     json_data = model.to_json()
     with open('model.json', 'w') as outfile:
-    json.dump(json_data, outfile)
+        json.dump(json_data, outfile)
     model.save_weights('weights.hdf')
