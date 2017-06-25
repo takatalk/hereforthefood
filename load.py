@@ -24,10 +24,10 @@ def load_imgs():
 
     a = 0
     # Loading in real, unedited images
-    for filename in glob.glob('data/true/*.jp*g'): #for filename in glob.glob('data/false/*.jpeg'):
+    for filename in glob.glob('newdata/true/*.jpg'): #for filename in glob.glob('data/false/*.jpeg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
-        if a < 90:
+        if a < 666:
             x_train.append(imgArray)
             y_train.append(1)
         else:
@@ -37,10 +37,10 @@ def load_imgs():
 
     a = 0
     # Loading in edited images
-    for filename in glob.glob('data/false/*.jp*g'):
+    for filename in glob.glob('newdata/false/*.jpg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
-        if a < 90:
+        if a < 666:
             x_train.append(imgArray)
             y_train.append(0)
         else:
