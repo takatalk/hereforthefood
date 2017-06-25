@@ -10,5 +10,5 @@ if __name__ == '__main__':
 	print(test)
 	json = open('model.json', 'r')
 	model = model_from_json(json)
-	model.load_weights('model_weights.hdf', by_name=False)
+	model.load_weights('weights.hdf', by_name=False)
 	model.predict(test, batch_size=1, verbose=0)

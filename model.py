@@ -25,7 +25,7 @@ from keras.utils import np_utils
 from keras.preprocessing.image import img_to_array, load_img
 # from matplotlib import pyplot as plt
 import load
-
+import json
 
 #------------------------------------------------------------------
 
@@ -155,5 +155,7 @@ else:
                         epochs=epochs,
                         validation_data=(x_test, y_test))
 
-    model.to_json()
+    json_data = model.to_json()
+    with open('model.json', 'w') as outfile:
+    json.dump(json_data, outfile)
     model.save_weights('weights.hdf')
