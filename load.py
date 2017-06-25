@@ -27,7 +27,7 @@ def load_imgs():
     for filename in glob.glob('newdata/true/*.jpg'): #for filename in glob.glob('data/false/*.jpeg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
-        if a < 666:
+        if a < 650:
             x_train.append(imgArray)
             y_train.append(1)
         else:
@@ -40,7 +40,33 @@ def load_imgs():
     for filename in glob.glob('newdata/false/*.jpg'):
         img = load_img(filename)
         imgArray = img_to_array(img)
-        if a < 666:
+        if a < 650:
+            x_train.append(imgArray)
+            y_train.append(0)
+        else:
+            x_test.append(imgArray)
+            y_test.append(0)
+        a += 1
+
+    a = 0
+        # Loading in real, unedited images
+    for filename in glob.glob('/home/hackathonuser/CameraDataset/JPEGImages/*.jpg'): #for filename in glob.glob('data/false/*.jpeg'):
+        img = load_img(filename)
+        imgArray = img_to_array(img)
+        if a < 6500:
+            x_train.append(imgArray)
+            y_train.append(1)
+        else:
+            x_test.append(imgArray)
+            y_test.append(1)
+        a += 1
+
+    a = 0
+    # Loading in edited images
+    for filename in glob.glob('/home/hackathonuser/CameraDataset/altered/*.jpg'):
+        img = load_img(filename)
+        imgArray = img_to_array(img)
+        if a < 6500:
             x_train.append(imgArray)
             y_train.append(0)
         else:
@@ -58,14 +84,12 @@ def load_imgs():
     
     return (x_train, y_train), (x_test, y_test)
 
-
-
-
-
-
-
-
-
-
-
-    
+def getMoreImgs(imgArray):
+    imgs = []
+    imgs.append(imgArray)
+    imgs.append(np.rot90(imgArray))
+    imgs.append(np.rot90(imgArray))
+    imgs.append(np.rot90(imgArray))
+    imgs.append(np.fliplr(imgArray))
+    imgs.append(np.flipud(imgArray))
+    return imgs
