@@ -7,7 +7,8 @@ import json
 if __name__ == '__main__':
 	filename = sys.argv[1]
 	array = sci_open(filename).array
-	array = np.expand_dims(array, axis=0)
+	# array = np.expand_dims(array, axis=0)
+	array = array[1,:]
 	test = [array]
 	model_file = open('model.json', 'r').readline()
 	json_model = json.loads(model_file)
