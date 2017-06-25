@@ -8,6 +8,7 @@ if __name__ == '__main__':
 	filename = sys.argv[1]
 	img = load_img(filename)
 	array = img_to_array(img)
+	array.reshape((1,) + array.shape)
 	# array = np.expand_dims(array, axis=0)
 	# array = array[1,:]
 	test = [array]
