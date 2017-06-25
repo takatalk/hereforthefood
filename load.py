@@ -14,6 +14,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.utils import np_utils
 from keras.preprocessing.image import img_to_array, load_img
+from PIL import Image
 
 def load_imgs():
     # load data
@@ -25,7 +26,8 @@ def load_imgs():
     a = 0
     # Loading in real, unedited images
     for filename in glob.glob('newdata/true/*.jpg'): #for filename in glob.glob('data/false/*.jpeg'):
-        img = load_img(filename)
+        # img = load_img(filename)
+        img = Image.open(filename)
         imgArray = img_to_array(img)
         if a < 650:
             x_train.append(imgArray)
@@ -38,7 +40,8 @@ def load_imgs():
     a = 0
     # Loading in edited images
     for filename in glob.glob('newdata/false/*.jpg'):
-        img = load_img(filename)
+        # img = load_img(filename)
+        img = Image.open(filename)
         imgArray = img_to_array(img)
         if a < 650:
             x_train.append(imgArray)
@@ -51,9 +54,11 @@ def load_imgs():
     a = 0
         # Loading in real, unedited images
     for filename in glob.glob('/home/hackathonuser/CameraDataset/JPEGImages/*.jpg'): #for filename in glob.glob('data/false/*.jpeg'):
-        img = load_img(filename)
+        # img = load_img(filename)
+        img = Image.open(filename)
+        img.resize((301, 301))
         imgArray = img_to_array(img)
-        imgArray.resize((301,301))
+        # imgArray = np.array(imgArray).resize((301,301))
         if a < 6500:
             x_train.append(imgArray)
             y_train.append(1)
@@ -65,9 +70,11 @@ def load_imgs():
     a = 0
     # Loading in edited images
     for filename in glob.glob('/home/hackathonuser/CameraDataset/altered/*.jpg'):
-        img = load_img(filename)
+        # img = load_img(filename)
+        img = Image.open(filename)
+        img.resize((301, 301))
         imgArray = img_to_array(img)
-        imgArray.resize((301,301))
+        # imgArray = np.array(imgArray).resize((301,301))
         if a < 6500:
             x_train.append(imgArray)
             y_train.append(0)
