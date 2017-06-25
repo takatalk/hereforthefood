@@ -9,7 +9,6 @@ if __name__ == '__main__':
 	test = [array]
 	model_file = open('model.json', 'r').readline()
 	json_model = json.loads(model_file)
-	json_model = json.loads(json_model)
 	model = model_from_json(json_model)
 	model.load_weights('weights.hdf', by_name=False)
 	model.predict(test, batch_size=1, verbose=0)
