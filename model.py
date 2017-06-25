@@ -72,7 +72,7 @@ import json
 
 batch_size = 100
 num_classes = 2
-epochs = 20
+epochs = 50
 data_augmentation = True
 
 # The data, shuffled and split between train and test sets:
